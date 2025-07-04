@@ -72,23 +72,23 @@ const ViewProduct = ({ id }: ProductViewProps) => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="w-full max-w-6xl mx-auto p-3 sm:p-6 bg-white rounded-lg shadow-md">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
         {/* Image Gallery */}
-        <div>
+        <div className="w-full">
           {/* Main Image */}
-          <div className="bg-gray-100 rounded-lg overflow-hidden mb-4 flex items-center justify-center">
+          <div className="bg-gray-100 rounded-lg mb-4 flex items-center justify-center aspect-square">
             {mainImage ? (
               <Image
                 src={mainImage}
                 alt={product.name}
                 width={600}
                 height={600}
-                className="w-full h-auto object-cover aspect-square"
+                className="w-full h-full object-cover rounded-lg"
                 priority
               />
             ) : (
-              <div className="w-full h-64 bg-gray-200 flex items-center justify-center text-gray-400">
+              <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 rounded-lg">
                 No Image Available
               </div>
             )}
@@ -96,12 +96,12 @@ const ViewProduct = ({ id }: ProductViewProps) => {
 
           {/* Thumbnail Gallery */}
           {product.image?.length > 0 && (
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
               {product.image.map((img, index) => (
                 <button
                   key={index}
                   onClick={() => setMainImage(img)}
-                  className={`rounded-md overflow-hidden border-2 transition-all ${
+                  className={`rounded-md border-2 transition-all aspect-square ${
                     mainImage === img ? 'border-green-500' : 'border-transparent hover:border-gray-300'
                   }`}
                 >
@@ -110,7 +110,7 @@ const ViewProduct = ({ id }: ProductViewProps) => {
                     alt={`${product.name} thumbnail ${index + 1}`}
                     width={100}
                     height={100}
-                    className="w-full h-24 object-cover"
+                    className="w-full h-full object-cover rounded-md"
                   />
                 </button>
               ))}
@@ -119,15 +119,15 @@ const ViewProduct = ({ id }: ProductViewProps) => {
         </div>
 
         {/* Product Details */}
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
-          <p className="text-gray-600 mb-4">{product.brand}</p>
+        <div className="w-full">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 break-words">{product.name}</h1>
+          <p className="text-gray-600 mb-4 break-words">{product.brand}</p>
 
-          <div className="flex items-center mb-4">
-            <span className="text-2xl font-semibold text-gray-800">
+          <div className="flex flex-col sm:flex-row sm:items-center mb-4 gap-2">
+            <span className="text-xl sm:text-2xl font-semibold text-gray-800">
               KES {product.price.toLocaleString()}
             </span>
-            <span className={`ml-4 px-2 py-1 text-sm rounded-full ${
+            <span className={`px-2 py-1 text-sm rounded-full w-fit ${
               product.quantity > 0 
                 ? 'bg-green-100 text-green-800' 
                 : 'bg-red-100 text-red-800'
@@ -139,7 +139,7 @@ const ViewProduct = ({ id }: ProductViewProps) => {
           {/* Category */}
           <div className="mb-4">
             <h3 className="text-sm font-medium text-gray-500 mb-1">Category</h3>
-            <p className="text-gray-700">{product.category}</p>
+            <p className="text-gray-700 break-words">{product.category}</p>
           </div>
 
           {/* Color Display */}
@@ -149,7 +149,7 @@ const ViewProduct = ({ id }: ProductViewProps) => {
               {product.color?.map((color, index) => (
                 <div 
                   key={index}
-                  className="w-8 h-8 rounded-full border border-gray-300"
+                  className="w-8 h-8 rounded-full border border-gray-300 flex-shrink-0"
                   style={{ backgroundColor: color }}
                   title={color}
                 />
@@ -160,15 +160,15 @@ const ViewProduct = ({ id }: ProductViewProps) => {
           {/* Description */}
           <div className="mb-6">
             <h3 className="text-sm font-medium text-gray-500 mb-1">Description</h3>
-            <p className="text-gray-700 whitespace-pre-line">{product.description}</p>
+            <p className="text-gray-700 whitespace-pre-line break-words">{product.description}</p>
           </div>
 
           {/* Additional Info */}
           <div className="border-t border-green-600 pt-4">
-            <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
               <div>
                 <p className="text-gray-500">Product ID</p>
-                <p className="text-gray-700 font-mono text-xs">{product._id}</p>
+                <p className="text-gray-700 font-mono text-xs break-all">{product._id}</p>
               </div>
               <div>
                 <p className="text-gray-500">Quantity Available</p>
