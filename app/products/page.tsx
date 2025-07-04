@@ -4,9 +4,9 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import Tables from "../components/Tables";
 import ProductModal from "../components/Modal/ProductModal";
 import Image from "next/image";
-import { MdPeople, MdShoppingCart, MdTrendingUp } from "react-icons/md";
-import { FiPlus } from "react-icons/fi";
-import CategoryModal from "../components/Modal/CategoryModel";
+import { MdPeople, MdTrendingUp } from "react-icons/md";
+import { FiList, FiPlus } from "react-icons/fi";
+import Category from "../components/Modal/Category";
 
 type Tool = {
   _id: string;
@@ -49,6 +49,8 @@ const Page = () => {
       setLoading(false);
     }
   };
+
+  const handleCategory = async () => {};
 
   useEffect(() => {
     fetchTools();
@@ -183,53 +185,49 @@ const Page = () => {
     <div className="p-1">
       <div className="bg-primary/20 p-6 rounded-xl shadow-sm border border-primary">
         <h3 className="text-lg font-semibold text-dark mb-4">Quick Actions</h3>
-         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-    {/* Add Category */}
-    <CategoryModal>
-      <button className="p-4 border-2 border-dashed border-primary rounded-lg hover:border-primary hover:bg-secondary transition-colors group w-full">
-        <FiPlus
-          size={24}
-          className="text-dark group-hover:text-primary mx-auto mb-2"
-        />
-        <p className="text-sm text-gray-900 group-hover:text-primary text-center">
-          Add Category
-        </p>
-      </button>
-    </CategoryModal>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* Add Category */}
+          {/* Add New Product */}
+          <Category
+            type="create"
+            onSuccess={handleCategory}
+            buttonText="Add New Category"
+            buttonIcon={FiPlus}
+            buttonClassName="p-4 border-2 border-dashed border-primary rounded-lg hover:border-primary hover:bg-secondary transition-colors group w-full"
+          />
 
-    {/* New Order */}
-    <button className="p-4 border-2 border-dashed border-primary rounded-lg hover:border-primary hover:bg-secondary transition-colors group w-full">
-      <MdShoppingCart
-        size={24}
-        className="text-dark group-hover:text-primary mx-auto mb-2"
-      />
-      <p className="text-sm text-gray-900 group-hover:text-primary text-center">
-        New Order
-      </p>
-    </button>
+          {/* View All Products */}
+          <Category
+            type="view"
+            onSuccess={handleCategory}
+            buttonText="View All Categories"
+            buttonIcon={FiList}
+            buttonClassName="p-4 border-2 border-dashed border-primary rounded-lg hover:border-primary hover:bg-secondary transition-colors group w-full"
+            modalTitle="Product Category"
+          />
 
-    {/* Add User */}
-    <button className="p-4 border-2 border-dashed border-primary rounded-lg hover:border-primary hover:bg-secondary transition-colors group w-full">
-      <MdPeople
-        size={24}
-        className="text-dark group-hover:text-primary mx-auto mb-2"
-      />
-      <p className="text-sm text-gray-900 group-hover:text-primary text-center">
-        Add User
-      </p>
-    </button>
+          {/* Add User */}
+          <button className="p-4 border-2 border-dashed border-primary rounded-lg hover:border-primary hover:bg-secondary transition-colors group w-full">
+            <MdPeople
+              size={24}
+              className="text-dark group-hover:text-primary mx-auto mb-2"
+            />
+            <p className="text-sm text-gray-900 group-hover:text-primary text-center">
+              Add User
+            </p>
+          </button>
 
-    {/* View Reports */}
-    <button className="p-4 border-2 border-dashed border-primary rounded-lg hover:border-primary hover:bg-secondary transition-colors group w-full">
-      <MdTrendingUp
-        size={24}
-        className="text-dark group-hover:text-primary mx-auto mb-2"
-      />
-      <p className="text-sm text-gray-900 group-hover:text-primary text-center">
-        View Reports
-      </p>
-    </button>
-  </div>
+          {/* View Reports */}
+          <button className="p-4 border-2 border-dashed border-primary rounded-lg hover:border-primary hover:bg-secondary transition-colors group w-full">
+            <MdTrendingUp
+              size={24}
+              className="text-dark group-hover:text-primary mx-auto mb-2"
+            />
+            <p className="text-sm text-gray-900 group-hover:text-primary text-center">
+              View Reports
+            </p>
+          </button>
+        </div>
       </div>
       <div className="mb-6 mt-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Tools Inventory</h1>
