@@ -44,9 +44,9 @@ const iconMap = {
 };
 
 const buttonClassMap = {
-  view: "text-primary hover:text-primary/80",
+  view: "text-blue-500 hover:text-blue-700",
   create: "inline-flex items-center px-4 py-2 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium",
-  update: "text-primary hover:text-primary/80",
+  update: "text-amber-500 hover:text-amber-700",
   delete: "text-red-600 hover:text-red-900",
 };
 
@@ -55,6 +55,13 @@ const modalTitleMap = {
   create: "Add New Product",
   update: "Edit Product",
   delete: "Delete Product",
+};
+
+const tooltipMap = {
+  view: "View product details",
+  create: "Add a new product",
+  update: "Edit product",
+  delete: "Delete product",
 };
 
 const ProductModal: React.FC<ProductModalProps> = ({ 
@@ -164,20 +171,28 @@ const ProductModal: React.FC<ProductModalProps> = ({
           {children}
         </div>
       ) : (
-        <button
-          onClick={() => setOpen(true)}
-          className={buttonClassMap[type]}
-          aria-label={type}
-        >
-          {type === 'create' ? (
-            <>
-              <FiPlus className="-ml-1 mr-2 h-5 w-5" />
-              Add Product
-            </>
-          ) : (
-            iconMap[type]
-          )}
-        </button>
+        <div className="relative group">
+          <button
+            onClick={() => setOpen(true)}
+            className={buttonClassMap[type]}
+            aria-label={type}
+          >
+            {type === 'create' ? (
+              <>
+                <FiPlus className="-ml-1 mr-2 h-5 w-5" />
+                Add Product
+              </>
+            ) : (
+              iconMap[type]
+            )}
+          </button>
+          
+          {/* Tooltip */}
+          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-10">
+            {tooltipMap[type]}
+            <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+          </div>
+        </div>
       )}
 
       {/* Modal */}

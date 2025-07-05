@@ -50,6 +50,13 @@ const colorMap = {
   ship: "bg-blue-500 hover:bg-blue-700",
 };
 
+const tooltipMap = {
+  view: "View order details",
+  confirm: "Confirm order",
+  cancel: "Cancel order",
+  ship: "Mark as shipped",
+};
+
 const OrderModal: React.FC<OrderModalProps> = ({ type, order, onSuccess }) => {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -118,12 +125,20 @@ const OrderModal: React.FC<OrderModalProps> = ({ type, order, onSuccess }) => {
 
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        className={`p-2 rounded-full text-white ${colorMap[type]} transition-colors duration-200`}
-      >
-        {iconMap[type]}
-      </button>
+      <div className="relative group">
+        <button
+          onClick={() => setOpen(true)}
+          className={`p-2 rounded-full text-white ${colorMap[type]} transition-colors duration-200`}
+        >
+          {iconMap[type]}
+        </button>
+
+        {/* Tooltip */}
+        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-10">
+          {tooltipMap[type]}
+          <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-800"></div>
+        </div>
+      </div>
 
       {open && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-dark/40 bg-opacity-50">

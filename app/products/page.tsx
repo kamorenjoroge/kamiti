@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import Tables from "../components/Tables";
 import ProductModal from "../components/Modal/ProductModal";
 import Image from "next/image";
-import { MdPeople, MdTrendingUp } from "react-icons/md";
+import {  MdTrendingUp } from "react-icons/md";
 import { FiList, FiPlus } from "react-icons/fi";
 import Category from "../components/Modal/Category";
 
@@ -187,7 +187,7 @@ const Page = () => {
         <h3 className="text-lg font-semibold text-dark mb-4">Quick Actions</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {/* Add Category */}
-          {/* Add New Product */}
+        
           <Category
             type="create"
             onSuccess={handleCategory}
@@ -206,16 +206,7 @@ const Page = () => {
             modalTitle="Product Category"
           />
 
-          {/* Add User */}
-          <button className="p-4 border-2 border-dashed border-primary rounded-lg hover:border-primary hover:bg-secondary transition-colors group w-full">
-            <MdPeople
-              size={24}
-              className="text-dark group-hover:text-primary mx-auto mb-2"
-            />
-            <p className="text-sm text-gray-900 group-hover:text-primary text-center">
-              Add User
-            </p>
-          </button>
+        
 
           {/* View Reports */}
           <button className="p-4 border-2 border-dashed border-primary rounded-lg hover:border-primary hover:bg-secondary transition-colors group w-full">
