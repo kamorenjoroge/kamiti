@@ -1,6 +1,11 @@
+
 const Page = () => {
   return (
-    <div className=''>Comming soon </div>
+    <div className=''>
+    
+       comminging soon 
+      
+       </div>
   )
 }
 
