@@ -104,11 +104,11 @@ const Notification = () => {
       {/* Notification Bell Button */}
       <button
         onClick={() => setIsNotificationOpen(!isNotificationOpen)}
-        className="relative p-2 rounded-lg hover:bg-gray-50 text-gray-600 hover:text-[#f75040] transition-all duration-200 group"
+        className="relative p-2 rounded-lg hover:bg-gray-50 text-gray-600 hover:text-primary transition-all duration-200 group"
       >
         <MdNotifications size={24} className="group-hover:scale-110 transition-transform duration-200" />
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 bg-[#f75040] text-white text-xs font-medium rounded-full h-5 w-5 flex items-center justify-center shadow-lg animate-pulse">
+          <span className="absolute -top-1 -right-1 bg-primary text-white text-xs font-medium rounded-full h-5 w-5 flex items-center justify-center shadow-lg animate-pulse">
             {unreadCount > 99 ? '99+' : unreadCount}
           </span>
         )}
@@ -118,10 +118,10 @@ const Notification = () => {
       {isNotificationOpen && (
         <div className="fixed top-16 right-4 z-50 w-80 bg-white rounded-xl border border-gray-200 shadow-xl overflow-hidden">
           {/* Header */}
-          <div className="px-4 py-3 bg-[#EDF1FF] border-b border-gray-100 flex justify-between items-center">
+          <div className="px-4 py-3 bg-secondary border-b border-gray-100 flex justify-between items-center">
             <h3 className="text-lg font-semibold text-gray-800">Pending Orders</h3>
             {unreadCount > 0 && (
-              <span className="bg-[#f75040] text-white text-xs font-medium rounded-full px-3 py-1 shadow-sm">
+              <span className="bg-primary text-white text-xs font-medium rounded-full px-3 py-1 shadow-sm">
                 {unreadCount} pending
               </span>
             )}
@@ -131,7 +131,7 @@ const Notification = () => {
           <div className="max-h-96 overflow-y-auto">
             {loading ? (
               <div className="p-6 text-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-2 border-[#EDF1FF] border-t-[#f75040] mx-auto"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-2 border-secondary border-t-primary mx-auto"></div>
                 <p className="text-sm text-gray-500 mt-3">Loading orders...</p>
               </div>
             ) : error ? (
@@ -139,15 +139,15 @@ const Notification = () => {
                 <p className="text-sm text-red-500 mb-3">{error}</p>
                 <button 
                   onClick={fetchOrders}
-                  className="text-sm bg-[#f75040] hover:bg-[#e54636] text-white px-4 py-2 rounded-lg transition-colors duration-200"
+                  className="text-sm bg-primary hover:bg-primary-light text-white px-4 py-2 rounded-lg transition-colors duration-200"
                 >
                   Retry
                 </button>
               </div>
             ) : orders.length === 0 ? (
               <div className="p-6 text-center">
-                <div className="w-16 h-16 bg-[#EDF1FF] rounded-full flex items-center justify-center mx-auto mb-3">
-                  <MdNotifications size={24} className="text-[#f75040]" />
+                <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-3">
+                  <MdNotifications size={24} className="text-primary" />
                 </div>
                 <p className="text-sm text-gray-500">No pending orders</p>
               </div>
@@ -158,14 +158,14 @@ const Notification = () => {
                 return (
                   <div
                     key={order._id}
-                    className="group hover:bg-[#EDF1FF] transition-colors duration-200 border-l-4 border-l-[#f75040]"
+                    className="group hover:bg-secondary transition-colors duration-200 border-l-4 border-l-primary"
                   >
                     <Link href="/orders">
                       <div className="p-4">
                         {/* Order Header */}
                         <div className="flex justify-between items-start mb-2">
                           <div className="flex-1">
-                            <p className="text-sm font-semibold text-gray-800 group-hover:text-[#f75040] transition-colors duration-200">
+                            <p className="text-sm font-semibold text-gray-800 group-hover:text-primary transition-colors duration-200">
                               {order.customerName}
                             </p>
                             <p className="text-xs text-gray-600 mt-1">
@@ -173,7 +173,7 @@ const Notification = () => {
                             </p>
                           </div>
                           <div className="text-right">
-                            <span className="text-sm font-bold text-[#f75040]">
+                            <span className="text-sm font-bold text-primary">
                               {formatCurrency(order.total)}
                             </span>
                           </div>
@@ -200,7 +200,7 @@ const Notification = () => {
                         
                         {/* M-Pesa Transaction */}
                         {order.Mpesatransactioncode && (
-                          <div className="bg-[#EDF1FF] rounded-lg px-3 py-2 group-hover:bg-white transition-colors duration-200">
+                          <div className="bg-secondary rounded-lg px-3 py-2 group-hover:bg-white transition-colors duration-200">
                             <p className="text-xs text-gray-700">
                               <span className="font-medium">M-Pesa:</span> {order.Mpesatransactioncode}
                             </p>
@@ -218,13 +218,13 @@ const Notification = () => {
           <div className="px-4 py-3 bg-gray-50 border-t border-gray-100 flex justify-center gap-4">
             <button 
               onClick={fetchOrders}
-              className="text-sm text-[#f75040] hover:text-[#e54636] font-medium transition-colors duration-200"
+              className="text-sm text-primary hover:text-primary-libg-primary-light font-medium transition-colors duration-200"
             >
               Refresh
             </button>
             <span className="text-gray-300">|</span>
             <Link href="/orders">
-              <button className="text-sm text-[#f75040] hover:text-[#e54636] font-medium transition-colors duration-200">
+              <button className="text-sm text-primary hover:text-primary-libg-primary-light font-medium transition-colors duration-200">
                 View all orders
               </button>
             </Link>
