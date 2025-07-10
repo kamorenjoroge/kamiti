@@ -26,7 +26,6 @@ type Order = {
   __v: number;
 };
 
-
 const Notification = () => {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [orders, setOrders] = useState<Order[]>([]);
@@ -100,16 +99,16 @@ const Notification = () => {
     }).format(amount);
   };
 
-
   return (
     <div className="relative">
+      {/* Notification Bell Button */}
       <button
         onClick={() => setIsNotificationOpen(!isNotificationOpen)}
-        className="relative p-2 rounded-md hover:bg-gray-100 text-gray-600 hover:text-primary transition-colors"
+        className="relative p-2 rounded-lg hover:bg-gray-50 text-gray-600 hover:text-[#f75040] transition-all duration-200 group"
       >
-        <MdNotifications size={24} />
+        <MdNotifications size={24} className="group-hover:scale-110 transition-transform duration-200" />
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 bg-danger text-light text-xs rounded-full h-5 w-5 flex items-center justify-center">
+          <span className="absolute -top-1 -right-1 bg-[#f75040] text-white text-xs font-medium rounded-full h-5 w-5 flex items-center justify-center shadow-lg animate-pulse">
             {unreadCount > 99 ? '99+' : unreadCount}
           </span>
         )}
@@ -117,105 +116,118 @@ const Notification = () => {
 
       {/* Notifications Dropdown */}
       {isNotificationOpen && (
-        <div className="absolute right-0 mt-2 w-96 bg-light rounded-lg shadow-lg border border-gray-200 z-50">
-          <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-            <h3 className="text-lg font-semibold text-dark">Pending Orders</h3>
+        <div className="fixed top-16 right-4 z-50 w-80 bg-white rounded-xl border border-gray-200 shadow-xl overflow-hidden">
+          {/* Header */}
+          <div className="px-4 py-3 bg-[#EDF1FF] border-b border-gray-100 flex justify-between items-center">
+            <h3 className="text-lg font-semibold text-gray-800">Pending Orders</h3>
             {unreadCount > 0 && (
-              <span className="bg-primary text-white text-xs rounded-full px-2 py-1">
+              <span className="bg-[#f75040] text-white text-xs font-medium rounded-full px-3 py-1 shadow-sm">
                 {unreadCount} pending
               </span>
             )}
           </div>
 
+          {/* Content */}
           <div className="max-h-96 overflow-y-auto">
             {loading ? (
-              <div className="p-4 text-center">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary mx-auto"></div>
-                <p className="text-sm text-gray-500 mt-2">Loading orders...</p>
+              <div className="p-6 text-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-2 border-[#EDF1FF] border-t-[#f75040] mx-auto"></div>
+                <p className="text-sm text-gray-500 mt-3">Loading orders...</p>
               </div>
             ) : error ? (
-              <div className="p-4 text-center">
-                <p className="text-sm text-red-500">{error}</p>
+              <div className="p-6 text-center">
+                <p className="text-sm text-red-500 mb-3">{error}</p>
                 <button 
                   onClick={fetchOrders}
-                  className="text-xs bg-primary text-white px-2 py-1 rounded mt-2"
+                  className="text-sm bg-[#f75040] hover:bg-[#e54636] text-white px-4 py-2 rounded-lg transition-colors duration-200"
                 >
                   Retry
                 </button>
               </div>
             ) : orders.length === 0 ? (
-              <div className="p-4 text-center">
-                <p className="text-sm text-gray-500">No pending orders  </p>
+              <div className="p-6 text-center">
+                <div className="w-16 h-16 bg-[#EDF1FF] rounded-full flex items-center justify-center mx-auto mb-3">
+                  <MdNotifications size={24} className="text-[#f75040]" />
+                </div>
+                <p className="text-sm text-gray-500">No pending orders</p>
               </div>
             ) : (
               orders.map((order) => {
                 const totalItems = order.items.reduce((sum, item) => sum + item.quantity, 0);
                 
                 return (
-        
-                 
-                  
                   <div
                     key={order._id}
-                    className="p-4 border-b border-gray-100 hover:bg-gray-100 bg-secondary border-l-4 border-l-dark"
-                  > <Link href="/orders">
-                    <div className="flex justify-between items-start">
-                      <div className="flex-1">
-                        <p className="text-sm font-medium text-dark">{order.customerName}</p>
-                         
+                    className="group hover:bg-[#EDF1FF] transition-colors duration-200 border-l-4 border-l-[#f75040]"
+                  >
+                    <Link href="/orders">
+                      <div className="p-4">
+                        {/* Order Header */}
+                        <div className="flex justify-between items-start mb-2">
+                          <div className="flex-1">
+                            <p className="text-sm font-semibold text-gray-800 group-hover:text-[#f75040] transition-colors duration-200">
+                              {order.customerName}
+                            </p>
+                            <p className="text-xs text-gray-600 mt-1">
+                              {order.phone} • {order.shippingAddress}
+                            </p>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-sm font-bold text-[#f75040]">
+                              {formatCurrency(order.total)}
+                            </span>
+                          </div>
+                        </div>
                         
-                        <p className="text-xs text-gray-500">
-                          {order.phone} • {order.shippingAddress}
-                        </p>
+                        {/* Order Details */}
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full font-medium">
+                            {totalItems} item{totalItems > 1 ? 's' : ''}
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            {getTimeAgo(order.createdAt)}
+                          </span>
+                        </div>
+                        
+                        {/* Items List */}
+                        {order.items.length > 0 && (
+                          <div className="mb-2">
+                            <p className="text-xs text-gray-600 truncate">
+                              {order.items.map(item => item.name).join(', ')}
+                            </p>
+                          </div>
+                        )}
+                        
+                        {/* M-Pesa Transaction */}
+                        {order.Mpesatransactioncode && (
+                          <div className="bg-[#EDF1FF] rounded-lg px-3 py-2 group-hover:bg-white transition-colors duration-200">
+                            <p className="text-xs text-gray-700">
+                              <span className="font-medium">M-Pesa:</span> {order.Mpesatransactioncode}
+                            </p>
+                          </div>
+                        )}
                       </div>
-                      <div className="text-right">
-                        <span className="text-sm font-semibold text-primary">
-                          {formatCurrency(order.total)}
-                        </span>
-                      </div>
-                    </div>
                     </Link>
-                    
-                    <div className="flex justify-between items-center mt-2">
-                      <span className="text-xs bg-gray-100 px-2 py-1 rounded">
-                        {totalItems} item{totalItems > 1 ? 's' : ''}
-                      </span>
-                      <span className="text-xs text-gray-500">
-                        {getTimeAgo(order.createdAt)}
-                      </span>
-                    </div>
-                    
-                    {order.items.length > 0 && (
-                      <div className="mt-2">
-                        <p className="text-xs text-gray-600 truncate">
-                          {order.items.map(item => item.name).join(', ')}
-                        </p>
-                      </div>
-                    )}
-                    
-                    {order.Mpesatransactioncode && (
-                      <div className="mt-1">
-                        <p className="text-xs text-gray-500">
-                          M-Pesa: {order.Mpesatransactioncode}
-                        </p>
-                      </div>
-                    )}
                   </div>
                 );
               })
             )}
           </div>
 
-          <div className="p-3 text-center border-t border-gray-200">
+          {/* Footer */}
+          <div className="px-4 py-3 bg-gray-50 border-t border-gray-100 flex justify-center gap-4">
             <button 
               onClick={fetchOrders}
-              className="text-sm text-primary hover:underline font-medium mr-4"
+              className="text-sm text-[#f75040] hover:text-[#e54636] font-medium transition-colors duration-200"
             >
               Refresh
             </button>
-            <button className="text-sm text-primary hover:underline font-medium">
-              View all pending orders
-            </button>
+            <span className="text-gray-300">|</span>
+            <Link href="/orders">
+              <button className="text-sm text-[#f75040] hover:text-[#e54636] font-medium transition-colors duration-200">
+                View all orders
+              </button>
+            </Link>
           </div>
         </div>
       )}
