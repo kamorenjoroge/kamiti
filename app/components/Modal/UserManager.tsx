@@ -72,7 +72,7 @@ const UserManager: React.FC<UserManagerProps> = ({ type, user, onSuccess }) => {
   const getButtonStyle = () => {
     switch (type) {
       case "create":
-        return "flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors";
+        return "flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary text-white rounded-md transition-colors";
       case "edit":
         return "p-2 text-green-600 hover:text-green-800 hover:bg-green-50 rounded-md transition-colors";
       case "delete":
@@ -116,7 +116,7 @@ const UserManager: React.FC<UserManagerProps> = ({ type, user, onSuccess }) => {
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="Enter email address"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                 required
               />
             </div>
@@ -128,7 +128,7 @@ const UserManager: React.FC<UserManagerProps> = ({ type, user, onSuccess }) => {
                 name="role"
                 value={formData.role}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                 required
               >
                 <option value="secretary">Secretary</option>
@@ -142,7 +142,7 @@ const UserManager: React.FC<UserManagerProps> = ({ type, user, onSuccess }) => {
                   name="active"
                   checked={formData.active}
                   onChange={handleInputChange}
-                  className="mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="mr-2 h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
                 />
                 Active User
               </label>
@@ -161,7 +161,7 @@ const UserManager: React.FC<UserManagerProps> = ({ type, user, onSuccess }) => {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                 required
               />
             </div>
@@ -173,7 +173,7 @@ const UserManager: React.FC<UserManagerProps> = ({ type, user, onSuccess }) => {
                 name="role"
                 value={formData.role}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                 required
               >
                 <option value="secretary">Secretary</option>
@@ -187,7 +187,7 @@ const UserManager: React.FC<UserManagerProps> = ({ type, user, onSuccess }) => {
                   name="active"
                   checked={formData.active}
                   onChange={handleInputChange}
-                  className="mr-2 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="mr-2 h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
                 />
                 Active User
               </label>
@@ -286,7 +286,7 @@ const UserManager: React.FC<UserManagerProps> = ({ type, user, onSuccess }) => {
       )}
 
       {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-dark/90 bg-opacity-50 overflow-y-auto p-4">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-md mx-auto my-8 overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold mb-4 text-gray-900">
@@ -311,17 +311,17 @@ const UserManager: React.FC<UserManagerProps> = ({ type, user, onSuccess }) => {
                       setOpen(false);
                       setError(null);
                     }}
-                    className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                    className="px-4 py-2 border border-gray-300 rounded-md hover:bg-secondary transition-colors"
                     disabled={loading}
                   >
-                    Cancel
+                    Cancel 
                   </button>
                   <button
                     type="submit"
                     className={`px-4 py-2 rounded-md text-white transition-colors ${
                       type === "delete"
                         ? "bg-red-600 hover:bg-red-700"
-                        : "bg-blue-600 hover:bg-blue-700"
+                        : "bg-primary hover:bg-dark hover:text-light"
                     } ${loading ? "opacity-70 cursor-not-allowed" : ""}`}
                     disabled={loading}
                   >
