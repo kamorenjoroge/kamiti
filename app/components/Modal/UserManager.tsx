@@ -5,6 +5,7 @@ import axios from "axios";
 import { FaUserEdit, FaUserPlus } from "react-icons/fa";
 import { FiTrash2 } from "react-icons/fi";
 import { MdWarning } from "react-icons/md";
+import toast from "react-hot-toast";
 
 type User = {
   _id: string;
@@ -245,6 +246,7 @@ const UserManager: React.FC<UserManagerProps> = ({ type, user, onSuccess }) => {
 
       setOpen(false);
       onSuccess?.();
+     toast.success("User " + (type === "delete"? "deleted": type === "edit"? "updated": "saved") + " successfully!");
     } catch (err) {
       console.error(`Error during ${type} operation:`, err);
       setError(
