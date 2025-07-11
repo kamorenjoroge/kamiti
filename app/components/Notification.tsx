@@ -158,7 +158,7 @@ const Notification = () => {
                 return (
                   <div
                     key={order._id}
-                    className="group hover:bg-secondary transition-colors duration-200 border-l-4 border-l-primary"
+                    className="group hover:bg-secondary transition-colors duration-200 border-l-4 border-b-primary border-l-primary"
                   >
                     <Link href="/orders">
                       <div className="p-4">
